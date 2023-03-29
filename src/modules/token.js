@@ -5,7 +5,7 @@ export const toToken = ({ clientId: client_id, codeVerifier: code_verifier, code
     TOKEN_URL,
     {
       method: 'POST',
-      body: JSON.stringify({
+      body: new URLSearchParams({
         grant_type: "authorization_code",
         client_id,
         code_verifier,
