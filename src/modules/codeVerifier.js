@@ -7,21 +7,14 @@ export const genVerifier = async (storeFn) => {
   return codeVerifier
 }
 
-export const toCodeChallenge = async (verifier) =>
-  base64UrlEncode(await digestMessage(verifier))
-
-const digestMessage = async (message) => {
-  const msgUint8 = new TextEncoder().encode(message)
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("")
-  return hashHex
+export const toCodeChallenge = async (message) => {
+  const data = new TextEncoder().encode(message)
+  const hash = await crypto.subtle.digest("SHA-256", data)
+  return base64UrlEncode(new Uint8Array(hash))
 }
 
-const base64UrlEncode = (digest) =>
-  btoa(digest)
+const base64UrlEncode = (data) =>
+  btoa(String.fromCharCode.apply(null, data))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
-    .replace(/=/g, '');
+    .replace(/=/g, '')
