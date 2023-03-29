@@ -8,7 +8,7 @@ export const toAuthUrl = ({ clientId: client_id, codeChallenge: code_challenge }
     client_id,
     code_challenge,
   }
-  const queryString = new URLSearchParams(Object.entries(params)).toString()
+  const queryString = new URLSearchParams(params).toString()
 
   return `${AUTH_URL}?${queryString}`
 }
