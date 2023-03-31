@@ -6,7 +6,7 @@ export const toAuthUrl = ({
 }) => {
   const params = {
     response_type: 'code',
-    redirect_uri: 'http://localhost:8000',
+    redirect_uri: 'http://localhost:8000/authorized',
     code_challenge_method: 'S256',
     client_id,
     code_challenge,

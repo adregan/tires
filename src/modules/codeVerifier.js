@@ -1,5 +1,16 @@
-export const genVerifier = () =>
-  self.crypto.getRandomValues(new Uint16Array(10)).join('')
+const iota = (n) => Array.from(Array(n), (_, i) => i)
+
+export const genVerifier = (length, afterCreateFn) => {
+  const charset =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
+  const verifier = iota(length)
+    .map(() => charset.charAt(Math.floor(Math.random() * charset.length)))
+    .join('')
+
+  afterCreateFn(verifier)
+
+  return verifier
+}
 
 export const toCodeChallenge = async (message) => {
   const data = new TextEncoder().encode(message)
