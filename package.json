@@ -1,0 +1,16 @@
+{
+  "name": "tires",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "check": "tsc --noEmit"
+  },
+  "author": "Duncan Regan",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "typescript": "^5.0.3"
+  }
+}
