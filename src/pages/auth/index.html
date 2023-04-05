@@ -7,6 +7,15 @@
     <script type="module" src="index.js"></script>
   </head>
   <body>
-    <pre id="token"></pre>
+    <p>Loading <span id="dots"></span></p>
+
+    <script>
+      const dots = document.getElementById('dots')
+      let n = 1;
+      setInterval(() => {
+        dots.replaceChildren('.'.repeat(n + 1))
+        n = (n + 1) % 3
+      }, 1000)
+    </script>
   </body>
 </html>
