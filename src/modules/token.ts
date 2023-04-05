@@ -1,13 +1,17 @@
-import { TOKEN_KEY } from './consts.js'
+import { TOKEN_KEY, TOKEN_URL } from './consts.js'
 import { read } from './storage.js'
 
-const TOKEN_URL = 'https://swd.weatherflow.com/id/oauth2/token'
+type Options = {
+  clientId: string
+  codeVerifier: string
+  code: string
+}
 
 export const toToken = async ({
   clientId: client_id,
   codeVerifier: code_verifier,
   code,
-}) =>
+}: Options) =>
   (
     await fetch(TOKEN_URL, {
       method: 'POST',
