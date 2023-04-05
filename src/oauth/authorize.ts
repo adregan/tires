@@ -4,8 +4,8 @@ const toRedirectUrl = () =>
   `${window.location.protocol}//${window.location.host}/auth`
 
 type Options = {
-  clientId: string,
-  codeChallenge: string,
+  clientId: string
+  codeChallenge: string
 }
 
 export const toAuthUrl = ({
