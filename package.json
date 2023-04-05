@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf out && rm .tsbuildinfo",
+    "clean": "rm -rf out && rm -f .tsbuildinfo",
     "prod:build": "tsc",
     "prod:html": "cp -R src/pages/ out",
     "prebuild": "npm run clean",
