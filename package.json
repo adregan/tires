@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "clean": "rm -rf out && rm -f .tsbuildinfo",
     "prod:build": "tsc",
     "prod:html": "node scripts/copy.mjs src/pages out",
@@ -19,9 +19,12 @@
   "author": "Duncan Regan",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@types/jest": "^29.5.0",
     "http-server": "^14.1.1",
+    "jest": "^29.5.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "ts-jest": "^29.1.0"
   },
   "dependencies": {
     "typescript": "^5.0.3"
