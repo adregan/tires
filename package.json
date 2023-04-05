@@ -13,7 +13,7 @@
     "fmt": "prettier --write src scripts",
     "dev:build": "tsc --watch",
     "dev:server": "http-server --port 8000 -c-1 out",
-    "dev:html": "cp -Rl src/pages/ out",
+    "dev:html": "node scripts/copy.mjs src/pages out -w",
     "start": "npm-run-all --parallel dev:*"
   },
   "author": "Duncan Regan",
