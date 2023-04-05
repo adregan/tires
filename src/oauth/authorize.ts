@@ -3,10 +3,15 @@ const AUTH_URL = 'https://smartweather.weatherflow.com/authorize.html'
 const toRedirectUrl = () =>
   `${window.location.protocol}//${window.location.host}/auth`
 
+type Options = {
+  clientId: string
+  codeChallenge: string
+}
+
 export const toAuthUrl = ({
   clientId: client_id,
   codeChallenge: code_challenge,
-}) => {
+}: Options) => {
   const params = {
     response_type: 'code',
     redirect_uri: toRedirectUrl(),

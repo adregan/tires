@@ -1,13 +1,16 @@
-import { TOKEN_KEY } from './consts.js'
-import { read } from './storage.js'
+import { TOKEN_URL } from './consts.js'
 
-const TOKEN_URL = 'https://swd.weatherflow.com/id/oauth2/token'
+type Options = {
+  clientId: string
+  codeVerifier: string
+  code: string
+}
 
 export const toToken = async ({
   clientId: client_id,
   codeVerifier: code_verifier,
   code,
-}) =>
+}: Options) =>
   (
     await fetch(TOKEN_URL, {
       method: 'POST',
@@ -20,11 +23,7 @@ export const toToken = async ({
     })
   ).json()
 
-export const hasValidToken = async () => {
-  const token = read(TOKEN_KEY)
-  if (!token) {
-    return false
-  }
+export const isValid = async (token: string) => {
   const status = (
     await fetch(
       `https://swd.weatherflow.com/swd/rest/stations?token=${token}`,

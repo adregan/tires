@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    /* Projects */
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
+
+    /* Language and Environment */
+    "target": "es2022",
+
+    /* Modules */
+    "module": "es2022",
+    "rootDir": "./src",
+
+    /* Emit */
+    "sourceMap": true,
+    "outDir": "./out",
+    "removeComments": true,
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}
