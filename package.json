@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "rm -rf out && rm .tsbuildinfo",
-    "build": "tsc",
-    "check": "tsc --noEmit",
+    "clean": "rm -rf out && rm .tsbuildinfo",
+    "prod:build": "tsc",
+    "prod:html": "cp -R src/pages/ out",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all prod:*",
     "fmt": "prettier --write src",
-    "dev": "http-server --port 8000 -c-1 out",
-    "start": "npm-run-all --parallel check dev"
+    "dev:build": "tsc --watch",
+    "dev:server": "http-server --port 8000 -c-1 out",
+    "dev:html": "cp -Rl src/pages/ out",
+    "start": "npm-run-all --parallel dev:*"
   },
   "author": "Duncan Regan",
   "license": "BSD-3-Clause",
