@@ -1,4 +1,4 @@
-const AUTH_URL = 'https://smartweather.weatherflow.com/authorize.html'
+import { AUTH_URL } from "./consts.js"
 
 const toRedirectUrl = () =>
   `${window.location.protocol}//${window.location.host}/auth`
