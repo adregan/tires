@@ -1,19 +1,11 @@
 const iota = (n: number) => Array.from(Array(n), (_, i) => i)
 
-export const genVerifier = (length: number, after: (v: string) => void) => {
+export const genVerifier = (length: number) => {
   const charset =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
-  const verifier = iota(length)
+  return iota(length)
     .map(() => charset.charAt(Math.floor(Math.random() * charset.length)))
     .join('')
-
-  try {
-    after(verifier)
-  } catch (e) {
-    console.error(`Created verifier but after action failed with: ${e}`)
-  }
-
-  return verifier
 }
 
 export const toCodeChallenge = async (message: string) => {
