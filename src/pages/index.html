@@ -1,56 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>should I change the tires?</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/styles/index.css" />
-  <script type="module" src="/modules/homePage.js"></script>
-  <style>
-    .authorize {
-      color: white;
-      background-image: linear-gradient(60deg,
-          hsl(289deg 25% 17%) 0%,
-          hsl(315deg 43% 27%) 32%,
-          hsl(328deg 64% 38%) 49%,
-          hsl(335deg 88% 45%) 60%,
-          hsl(343deg 100% 52%) 68%,
-          hsl(353deg 100% 58%) 74%,
-          hsl(4deg 100% 59%) 78%,
-          hsl(16deg 100% 53%) 82%,
-          hsl(25deg 100% 50%) 85%,
-          hsl(31deg 100% 50%) 89%,
-          hsl(37deg 100% 50%) 93%,
-          hsl(43deg 100% 50%) 100%);
-      background-size: 200% 200%;
-      font-weight: 500;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      animation: AnimationName 10s ease infinite;
-    }
-
-    @keyframes AnimationName {
-      0% {
-        background-position: 0% 50%;
+  <head>
+    <title>should I change the tires?</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <script type="module" src="/modules/homePage.js"></script>
+    <style>
+      .authorize {
+        color: white;
+        background-image: var(--gradient);
+        background-size: 200% 200%;
+        font-weight: 500;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        animation: AnimationName 10s ease infinite;
       }
 
-      50% {
-        background-position: 100% 50%;
+      @keyframes AnimationName {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
       }
+    </style>
+  </head>
 
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <main>
-    <h1>should I change the tires?</h1>
-    <a id="authorize" class="authorize" href="">Authorize with Tempest</a>
-  </main>
-</body>
-
+  <body>
+    <main>
+      <h1>should I change the tires?</h1>
+      <a id="authorize" class="authorize" href="">Authorize with Tempest</a>
+    </main>
+  </body>
 </html>
