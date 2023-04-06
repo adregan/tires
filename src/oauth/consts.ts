@@ -5,5 +5,3 @@ export const AUTH_URL = 'https://smartweather.weatherflow.com/authorize.html'
 export const TOKEN_URL = 'https://swd.weatherflow.com/id/oauth2/token'
 
 export const TOKEN_KEY = 'authToken'
-
-export const VERIFIER_KEY = 'verifier'
