@@ -1,4 +1,4 @@
-import { TOKEN_URL } from './consts.js'
+const TOKEN_URL = 'https://swd.weatherflow.com/id/oauth2/token'
 
 type Options = {
   clientId: string
