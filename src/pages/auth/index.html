@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script type="module" src="/modules/authPage.js"></script>
-  </head>
-  <body>
-    <p>Loading <span id="dots"></span></p>
 
-    <script>
-      const dots = document.getElementById('dots')
-      let n = 0
-      setInterval(() => {
-        dots.replaceChildren('.'.repeat(n))
-        n = (n + 1) % 4
-      }, 1000)
-    </script>
-  </body>
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles/index.css" />
+  <script type="module" src="/modules/authPage.js"></script>
+</head>
+
+<body>
+  <p>Loading <span id="dots"></span></p>
+
+  <script>
+    const dots = document.getElementById('dots')
+    let n = 0
+    setInterval(() => {
+      dots.replaceChildren('.'.repeat(n))
+      n = (n + 1) % 4
+    }, 1000)
+  </script>
+</body>
+
 </html>
