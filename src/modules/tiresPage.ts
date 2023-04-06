@@ -8,7 +8,7 @@ const main = async () => {
   const token = read(TOKEN_KEY)
   if (!verifyToken(token)) return logout()
 
-  document.getElementById('logOut')?.addEventListener('click', () => logout)
+  document.getElementById('logOut')?.addEventListener('click', logout)
 
   const stations = await fetchStations(token)
 
