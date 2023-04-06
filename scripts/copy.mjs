@@ -27,11 +27,13 @@ const parseArgs = args => {
   }
 }
 
+const extensions = ['.html', '.css']
+
 const watchAndCopy = async (source, target) => {
   const watcher = watch(source, { recursive: true, persistent: true })
 
   for await (const { filename } of watcher) {
-    if (extname(filename) === '.html' && !filename.includes('~')) {
+    if (extensions.includes(extname(filename)) && !filename.includes('~')) {
       const sourcePath = join(source, filename)
       const targetPath = join(target, filename)
       await copyFile(sourcePath, targetPath)
