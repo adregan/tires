@@ -2,7 +2,7 @@ import { Station, Device } from './stations.js'
 
 const STATIONS_URL = 'https://swd.weatherflow.com/swd/rest/stations'
 
-const fetchStations = async (token: string) => {
+const fetchStations = async (token: string): Promise<Station[]> => {
   const resp = await fetch(STATIONS_URL, {
     method: 'GET',
     headers: {
