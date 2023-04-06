@@ -3,7 +3,30 @@ import { toToken } from '../oauth/token.js'
 import { redirect } from '../utils/navigate.js'
 import { toSave } from '../utils/storage.js'
 
-const code = new URLSearchParams(window.location.search).get('code') ?? ''
+type State =
+  | { state: 'loading' }
+  | { state: 'retry'; value: number }
+  | { state: 'error'; value: string }
+type Event =
+  | { type: 'loading' }
+  | { type: 'retry' }
+  | { type: 'error'; message: string }
+
+const update = ({ state, ...rest }: State, event: Event): State => {
+  switch (event.type) {
+    case 'loading':
+      return { state: 'loading' }
+    case 'retry':
+      return state === 'retry' && rest.value <= 5
+        ? { state: 'retry', value: value + 1 }
+        : {
+            state: 'error',
+            value: 'Issue communicating with Tempest. Try refreshing.',
+          }
+    case 'error':
+      return { state: 'error', value: event.message }
+  }
+}
 
 const urlParams = new URLSearchParams(window.location.search)
 const code = urlParams.get('code') ?? ''

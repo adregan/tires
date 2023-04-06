@@ -7,15 +7,23 @@
     <script type="module" src="/modules/authPage.js"></script>
   </head>
   <body>
-    <p>Loading <span id="dots"></span></p>
-
-    <script>
-      const dots = document.getElementById('dots')
-      let n = 0
-      setInterval(() => {
-        dots.replaceChildren('.'.repeat(n))
-        n = (n + 1) % 4
-      }, 1000)
-    </script>
+    <template id="loading">
+      <script>
+        const dots = document.getElementById('dots')
+        let n = 0
+        setInterval(() => {
+          dots.replaceChildren('.'.repeat(n))
+          n = (n + 1) % 4
+        }, 1000)
+      </script>
+      <style>
+        p {
+          font-family: BlinkMacSystemFont, avenir next, avenir, segoe ui,
+            helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+            sans-serif;
+        }
+      </style>
+      <p>Loading <span id="dots"></span></p>
+    </template>
   </body>
 </html>
