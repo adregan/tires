@@ -14,10 +14,10 @@
         font-weight: 500;
         padding: 1rem 2rem;
         text-decoration: none;
-        animation: AnimationName 10s ease infinite;
+        animation: animate 10s ease infinite;
       }
 
-      @keyframes AnimationName {
+      @keyframes animate {
         0% {
           background-position: 0% 50%;
         }
@@ -30,12 +30,18 @@
           background-position: 0% 50%;
         }
       }
+
+      header {
+        text-align: center;
+      }
     </style>
   </head>
 
   <body>
     <main>
-      <h1>should I change the tires?</h1>
+      <header>
+        <h1>should I change the&nbsp;tires?</h1>
+      </header>
       <a id="authorize" class="authorize" href="">Authorize with Tempest</a>
     </main>
   </body>
