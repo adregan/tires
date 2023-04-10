@@ -33,5 +33,8 @@
     "trailingComma": "all",
     "semi": false,
     "singleQuote": true
+  },
+  "dependencies": {
+    "lit": "^2.7.2"
   }
 }
