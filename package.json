@@ -19,13 +19,13 @@
   "author": "Duncan Regan",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "esbuild": "0.17.16",
     "http-server": "^14.1.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.7"
-  },
-  "dependencies": {
+    "prettier": "^2.8.7",
     "typescript": "^5.0.3"
   },
+  "dependencies": {},
   "prettier": {
     "arrowParens": "avoid",
     "trailingComma": "all",
