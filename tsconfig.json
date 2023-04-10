@@ -9,6 +9,7 @@
 
     /* Modules */
     "module": "es2022",
+    "moduleResolution": "nodenext",
     "rootDir": "./src",
 
     /* Emit */

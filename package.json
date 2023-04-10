@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf out && rm -f .tsbuildinfo",
     "fmt": "prettier --write src scripts",
-    "bundler": "esbuild src/**/*.ts --format=esm --outdir=out",
+    "bundler": "esbuild src/**/*.ts --format=esm --outdir=out --bundle",
     "check": "tsc --noEmit",
     "prod:check": "npm run check",
     "prod:html": "node scripts/copy.mjs src/pages out",
