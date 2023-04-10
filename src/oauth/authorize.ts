@@ -1,7 +1,7 @@
 const AUTH_URL = 'https://smartweather.weatherflow.com/authorize.html'
 
 const toRedirectUrl = () =>
-  `${window.location.protocol}//${window.location.host}/auth`
+  `${window.location.protocol}//${window.location.host}/auth/`
 
 type Options = {
   clientId: string
