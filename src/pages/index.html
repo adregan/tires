@@ -1,48 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>should I change the tires?</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/styles/index.css" />
-    <script type="module" src="/modules/homePage.js"></script>
-    <style>
-      .authorize {
-        color: white;
-        background-image: var(--gradient);
-        background-size: 200% 200%;
-        font-weight: 500;
-        padding: 1rem 2rem;
-        text-decoration: none;
-        animation: animate 10s ease infinite;
-      }
 
-      @keyframes animate {
-        0% {
-          background-position: 0% 50%;
-        }
+<head>
+  <title>should I change the tires?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles/index.css" />
+  <script type="module" src="/modules/homePage.js"></script>
+  <style>
+    main {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
+      width: 100vw;
+    }
 
-        50% {
-          background-position: 100% 50%;
-        }
+    header {
+      text-align: center;
+    }
+  </style>
+</head>
 
-        100% {
-          background-position: 0% 50%;
-        }
-      }
+<body>
+  <main>
+    <header>
+      <h1>should I change the&nbsp;tires?</h1>
+    </header>
+    <authorize-link>Authorize with Tempest</authorize-link>
+    <redirect-authorized>already authorized; logging in</redirect-authorized>
+  </main>
+</body>
 
-      header {
-        text-align: center;
-      }
-    </style>
-  </head>
-
-  <body>
-    <main>
-      <header>
-        <h1>should I change the&nbsp;tires?</h1>
-      </header>
-      <a id="authorize" class="authorize" href="">Authorize with Tempest</a>
-    </main>
-  </body>
 </html>
