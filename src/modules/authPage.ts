@@ -2,6 +2,7 @@ import { CLIENT_ID, TOKEN_KEY } from '../oauth/consts.js'
 import { toToken } from '../oauth/token.js'
 import { redirect } from '../utils/navigate.js'
 import { toSave } from '../utils/storage.js'
+import '../components/loading-indicator.js'
 
 const urlParams = new URLSearchParams(window.location.search)
 const code = urlParams.get('code') ?? ''
