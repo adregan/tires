@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --tempest: rgb(51, 33, 55);
   --gradient: linear-gradient(
@@ -15,7 +19,6 @@
     hsl(37deg 100% 50%) 93%,
     hsl(43deg 100% 50%) 100%
   );
-  box-sizing: border-box;
   color-scheme: light dark;
   font-family: BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue,
     helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
