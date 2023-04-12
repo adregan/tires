@@ -1,11 +1,11 @@
+import { LitElement, html } from 'lit'
+import { customElement, state } from 'lit/decorators.js'
 import { CLIENT_ID, TOKEN_KEY } from '../oauth/consts.js'
-import { toToken } from '../oauth/token.js'
+import { fetchToken } from '../oauth/fetchToken.js'
 import { redirect } from '../utils/navigate.js'
 import { toSave } from '../utils/storage.js'
 import '../components/loading-indicator.js'
 import '../components/error-dialog.js'
-import { LitElement, html } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
 
 @customElement('auth-page')
 class AuthPage extends LitElement {
@@ -13,6 +13,8 @@ class AuthPage extends LitElement {
   private code: string = ''
   @state()
   private codeVerifier: string = ''
+
+  saveToken = toSave(TOKEN_KEY)
 
   constructor() {
     super()
@@ -28,22 +30,14 @@ class AuthPage extends LitElement {
   async connectedCallback() {
     super.connectedCallback()
 
-    // TODO: This call can often 404 so need to retry and then display error to user
-    const tokenResp = await toToken({
+    const token = await fetchToken({
       clientId: CLIENT_ID,
       codeVerifier: this.codeVerifier,
       code: this.code,
     })
 
-    const statusCode = tokenResp?.status?.status_code ?? -1
-
-    if (statusCode === 0) {
-      const token = tokenResp['access_token']
-      toSave(TOKEN_KEY)(token)
-      redirect('/tires')
-    } else {
-      redirect('/')
-    }
+    this.saveToken(token)
+    redirect('/tires')
   }
 
   render = () =>
