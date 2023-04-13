@@ -7,6 +7,7 @@ import { read } from '../utils/storage.js'
 import { TOKEN_KEY } from '../oauth/consts.js'
 import { redirect } from '../utils/navigate.js'
 import '../components/logout-button.js'
+import '../components/observations-table.js'
 import '../components/station-info.js'
 
 @customElement('tires-page')
@@ -30,6 +31,14 @@ export default class TiresPage extends LitElement {
 
     .info {
       max-width: 75%;
+    }
+
+    main {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
     }
   `
   @state()
@@ -82,6 +91,9 @@ export default class TiresPage extends LitElement {
         )}
         <logout-button></logout-button>
       </header>
+      <main>
+        <observations-table></observations-table>
+      </main>
     </article>
   `
 }
