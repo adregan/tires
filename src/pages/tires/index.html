@@ -27,17 +27,6 @@
       max-width: 75%;
     }
 
-    .info p {
-      margin: 0;
-    }
-
-    .logOut {
-      cursor: pointer;
-      display: block;
-      padding: 0.5rem;
-      font-size: 0.8rem;
-    }
-
     table {
       background: white;
       color: black;
@@ -75,10 +64,7 @@
 <body>
   <main class="tires">
     <header>
-      <article class="info">
-        <p>Station: <span id="stationName"></span></p>
-        <p>Device: <span id="deviceName"></span></p>
-      </article>
+      <station-info></station-info>
       <logout-button></logout-button>
     </header>
 

@@ -4,20 +4,16 @@ import { redirect } from '../utils/navigate.js'
 import fetchStations from '../weather/fetchStations.js'
 import fetchObservations from '../weather/fetchObservations.js'
 import '../components/logout-button.js'
+import '../components/station-info.js'
 
 const main = async () => {
-  const token = read(TOKEN_KEY)
-  if (!verifyToken(token)) return logout()
+  const token = read(TOKEN_KEY) as string
 
   const stations = await fetchStations(token)
 
-  const currentStation = stations[0]
-  const currentDevice = currentStation.devices.filter(
+  const currentDevice = stations[0].devices.filter(
     ({ environment }) => environment === 'outdoor',
   )[0]
-
-  writeTo('#stationName', currentStation.name)
-  writeTo('#deviceName', currentDevice.name)
 
   const observations = await fetchObservations(token, currentDevice.id)
   type DailyTemps = Record<string, number[]>
