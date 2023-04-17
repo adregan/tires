@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import { until } from 'lit/directives/until.js'
 import { when } from 'lit/directives/when.js'
 import { TOKEN_KEY } from '../oauth/consts.js'
 import { redirect } from '../utils/navigate.js'
@@ -10,7 +9,6 @@ import '../components/loading-indicator.js'
 import '../components/logout-button.js'
 import '../components/weather-observations.js'
 import '../components/station-info.js'
-import { live } from 'lit/directives/live.js'
 import { Device, Station } from '../weather/stations.js'
 
 @customElement('tires-page')
