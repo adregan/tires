@@ -31,16 +31,29 @@ export default class WeatherObservations extends LitElement {
       padding: 1rem;
     }
 
-    table tr {
-      border-top: 1px solid black;
-    }
-
     table td {
       text-align: right;
     }
 
     table td + td {
       text-align: left;
+    }
+
+    .yes .result {
+      background: lightgreen;
+    }
+    .no .result {
+      background: lightcoral;
+    }
+
+    .result::before {
+      margin-right: 1rem;
+    }
+    .no .result::before {
+      content: '✗';
+    }
+    .yes .result::before {
+      content: '✓';
     }
   `
   @property({ type: String })
@@ -68,8 +81,9 @@ export default class WeatherObservations extends LitElement {
 
     const now = new Date()
     const recentDrop = drops.length
-      ? ` (most recently: ${drops.at(-1)?.toLocaleDateString()})`
+      ? `(most recently: ${drops.at(-1)?.toLocaleDateString()})`
       : undefined
+    const averageTempF = Math.round(toF(averageTemp))
 
     return html`
       <table>
@@ -77,17 +91,17 @@ export default class WeatherObservations extends LitElement {
           Observations since
           <span>${start.toLocaleDateString()}</span>
         </caption>
-        <tr>
-          <td>After March 1st</td>
-          <td>${now > cutoff ? '✓' : '✗'}</td>
+        <tr class="${yOrN(now > cutoff)}">
+          <td>After March 1st?</td>
+          <td class="result">${now.toLocaleDateString()}</td>
         </tr>
-        <tr>
-          <td>Average temperature</td>
-          <td>${Math.round(toF(averageTemp))}°F</td>
+        <tr class="${yOrN(averageTempF > 45)}">
+          <td>Average temperature above 45°F?</td>
+          <td class="result">(${averageTempF}°F)</td>
         </tr>
-        <tr>
-          <td># of days with a temperature below freezing</td>
-          <td>${drops.length}${recentDrop ?? ''}</td>
+        <tr class="${yOrN(!(drops.length > 0))}">
+          <td>Haven't had any days below freezing</td>
+          <td class="result">${recentDrop ?? ''}</td>
         </tr>
       </table>
     `
@@ -145,3 +159,4 @@ export default class WeatherObservations extends LitElement {
 }
 
 const toF = (C: number): number => C * 1.8 + 32
+const yOrN = (cond: boolean) => (cond ? 'yes' : 'no')

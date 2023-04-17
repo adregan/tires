@@ -39,6 +39,7 @@ export default class TiresPage extends LitElement {
     main {
       align-items: center;
       display: flex;
+      flex-direction: column;
       height: 100%;
       justify-content: center;
       width: 100%;
@@ -93,6 +94,7 @@ export default class TiresPage extends LitElement {
         <logout-button></logout-button>
       </header>
       <main>
+        <h1>should I change the&nbsp;tires?</h1>
         <weather-observations
           deviceid=${this.device?.id}
           token=${this.token}
