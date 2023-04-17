@@ -10,6 +10,8 @@ import '../components/loading-indicator.js'
 import '../components/logout-button.js'
 import '../components/weather-observations.js'
 import '../components/station-info.js'
+import { live } from 'lit/directives/live.js'
+import { Device, Station } from '../weather/stations.js'
 
 @customElement('tires-page')
 export default class TiresPage extends LitElement {
@@ -45,55 +47,56 @@ export default class TiresPage extends LitElement {
   @state()
   private token = read(TOKEN_KEY) ?? ''
   @state()
-  private deviceId: string | undefined = ''
+  private station: Station | undefined
+  @state()
+  private device: Device | undefined
 
   constructor() {
     super()
     if (!this.token) redirect('/')
   }
 
+  async connectedCallback() {
+    super.connectedCallback()
+    await this.fetchStationAndDevice()
+  }
+
   async fetchStationAndDevice() {
     const [station] = await fetchStations(this.token)
-    const device = station.devices.filter(
+    this.station = station
+    this.device = station.devices.filter(
       ({ environment }) => environment === 'outdoor',
     )[0]
-
-    this.deviceId = device.id
-
-    return html`
-      <station-info
-        class="info"
-        stationName=${station.name}
-        deviceName=${device.name}
-      ></station-info>
-    `
+    this.requestUpdate()
   }
 
   render = () => html`
     <article>
       <header>
-        ${until(
-    this.fetchStationAndDevice(),
-    html`
+        ${when(
+          Boolean(this.device),
+          () => html`
+            <station-info
+              class="info"
+              stationName=${this.station?.name}
+              deviceName=${this.device?.name}
+            ></station-info>
+          `,
+          () => html`
             <station-info
               class="info"
               stationName="loading..."
               deviceName="loading..."
             ></station-info>
           `,
-  )}
+        )}
         <logout-button></logout-button>
       </header>
       <main>
-        ${when(
-    this.deviceId,
-    () =>
-      html`<weather-observations
-              deviceId=${this.deviceId}
-              token=${this.token}
-            ></weather-observations>`,
-    () => html`<loading-indicator></loading-indicator>`,
-  )}
+        <weather-observations
+          deviceid=${this.device?.id}
+          token=${this.token}
+        ></weather-observations>
       </main>
     </article>
   `

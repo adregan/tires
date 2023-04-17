@@ -1,10 +1,10 @@
 import { LitElement, css, html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
-import { Device } from '../weather/stations.js'
+import { customElement, property } from 'lit/decorators.js'
 import './loading-indicator.js'
 import { until } from 'lit/directives/until.js'
 import fetchObservations from '../weather/fetchObservations.js'
 import type { Observation } from '../weather/observation.js'
+import { when } from 'lit/directives/when.js'
 
 type DailyTemps = Record<string, number[]>
 
@@ -43,10 +43,22 @@ export default class WeatherObservations extends LitElement {
       text-align: left;
     }
   `
-  @property()
+  @property({ type: String })
   deviceId: string = ''
-  @property()
+  @property({ type: String })
   token: string = ''
+
+  attributeChangedCallback(
+    name: string,
+    _old: string | null,
+    value: string | null,
+  ): void {
+    super.attributeChangedCallback(name, _old, value)
+    if (name === 'deviceid' && typeof value === 'string') {
+      this.deviceId = value
+      this.requestUpdate()
+    }
+  }
 
   getObservations = async () => {
     const { start, cutoff, averageTemp, drops } = await fetchObservations(
@@ -89,8 +101,9 @@ export default class WeatherObservations extends LitElement {
   } {
     const dailyTemps: DailyTemps = observations.reduce(
       (acc, { date, temperature }) => {
-        const key = `${date.getFullYear()}/${date.getMonth() + 1
-          }/${date.getDate()}`
+        const key = `${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()}`
         const temps = acc[key] ?? []
         return {
           ...acc,
@@ -116,12 +129,19 @@ export default class WeatherObservations extends LitElement {
     }
   }
 
-  render = () => html`
-    ${until(
-    this.getObservations(),
-    html`<loading-indicator></loading-indicator>`,
-  )}
-  `
+  render = () =>
+    when(
+      this.deviceId,
+      () => {
+        return html`
+          ${until(
+            this.getObservations(),
+            html`<loading-indicator></loading-indicator>`,
+          )}
+        `
+      },
+      () => html`<loading-indicator></loading-indicator>`,
+    )
 }
 
 const toF = (C: number): number => C * 1.8 + 32
