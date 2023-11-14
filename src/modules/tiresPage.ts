@@ -7,7 +7,8 @@ import { read } from '../utils/storage.js'
 import fetchStations from '../weather/fetchStations.js'
 import '../components/loading-indicator.js'
 import '../components/logout-button.js'
-import '../components/weather-observations.js'
+import '../components/fall-weather-observations.js'
+import '../components/spring-weather-observations.js'
 import '../components/station-info.js'
 import { Device, Station } from '../weather/stations.js'
 
@@ -92,12 +93,22 @@ export default class TiresPage extends LitElement {
         <logout-button></logout-button>
       </header>
       <main>
-        <h1>should I change the&nbsp;tires?</h1>
-        <weather-observations
-          deviceid=${this.device?.id}
-          token=${this.token}
-        ></weather-observations>
+        ${when(
+          new Date().getMonth() > 6, // after July
+          () => html`<h1>should I put on the&nbsp;snowtires?</h1>
+            <fall-weather-observations
+              deviceid=${this.device?.id}
+              token=${this.token}
+            ></fall-weather-observations>`,
+
+          () => html`< h1 > should I remove the & nbsp; snowtires?</h1>
+            <spring-weather-observations
+              deviceid = ${this.device?.id}
+              token = ${this.token}
+            ></spring-weather-observations>`,
+        )}
       </main>
+      < /article>
     </article>
   `
 }

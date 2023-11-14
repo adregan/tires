@@ -8,8 +8,8 @@ import { when } from 'lit/directives/when.js'
 
 type DailyTemps = Record<string, number[]>
 
-@customElement('weather-observations')
-export default class WeatherObservations extends LitElement {
+@customElement('spring-weather-observations')
+export default class SpringWeatherObservations extends LitElement {
   static styles = css`
     table {
       background: white;
@@ -115,9 +115,8 @@ export default class WeatherObservations extends LitElement {
   } {
     const dailyTemps: DailyTemps = observations.reduce(
       (acc, { date, temperature }) => {
-        const key = `${date.getFullYear()}/${
-          date.getMonth() + 1
-        }/${date.getDate()}`
+        const key = `${date.getFullYear()}/${date.getMonth() + 1
+          }/${date.getDate()}`
         const temps = acc[key] ?? []
         return {
           ...acc,
@@ -149,9 +148,9 @@ export default class WeatherObservations extends LitElement {
       () => {
         return html`
           ${until(
-            this.getObservations(),
-            html`<loading-indicator></loading-indicator>`,
-          )}
+          this.getObservations(),
+          html`<loading-indicator></loading-indicator>`,
+        )}
         `
       },
       () => html`<loading-indicator></loading-indicator>`,
