@@ -1,41 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <script type="module" src="/modules/authPage.js"></script>
+  </head>
 
-<head>
-  <title></title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/styles/index.css" />
-  <script type="module" src="/modules/authPage.js"></script>
-  <style>
-    .loading {
-      font-size: 2rem;
-    }
-
-    .balance {
-      visibility: hidden;
-    }
-  </style>
-</head>
-
-<body>
-  <main>
-    <p class="loading">
-      <span id="balance" class="balance"></span> Loading
-      <span id="dots"></span>
-    </p>
-  </main>
-
-  <script>
-    const dots = document.getElementById('dots')
-    const balance = document.getElementById('balance')
-    let n = 0
-    setInterval(() => {
-      dots.replaceChildren('.'.repeat(n))
-      balance.replaceChildren('.'.repeat(n))
-      n = (n + 1) % 4
-    }, 500)
-  </script>
-</body>
-
+  <body>
+    <main>
+      <auth-page></auth-page>
+    </main>
+  </body>
 </html>

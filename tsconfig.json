@@ -6,9 +6,11 @@
 
     /* Language and Environment */
     "target": "es2022",
+    "experimentalDecorators": true,
 
     /* Modules */
     "module": "es2022",
+    "moduleResolution": "nodenext",
     "rootDir": "./src",
 
     /* Emit */

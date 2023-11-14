@@ -1,75 +1,103 @@
+import { LitElement, css, html } from 'lit'
+import { customElement, state } from 'lit/decorators.js'
+import { when } from 'lit/directives/when.js'
 import { TOKEN_KEY } from '../oauth/consts.js'
-import { read, clear } from '../utils/storage.js'
 import { redirect } from '../utils/navigate.js'
+import { read } from '../utils/storage.js'
 import fetchStations from '../weather/fetchStations.js'
-import fetchObservations from '../weather/fetchObservations.js'
+import '../components/loading-indicator.js'
+import '../components/logout-button.js'
+import '../components/weather-observations.js'
+import '../components/station-info.js'
+import { Device, Station } from '../weather/stations.js'
 
-const main = async () => {
-  const token = read(TOKEN_KEY)
-  if (!verifyToken(token)) return logout()
+@customElement('tires-page')
+export default class TiresPage extends LitElement {
+  static styles = css`
+    article {
+      display: grid;
+      grid-template-rows: max-content 1fr;
+      justify-content: unset;
+      height: 100vh;
+    }
 
-  document.getElementById('logOut')?.addEventListener('click', logout)
+    header {
+      align-items: center;
+      color: white;
+      background-image: var(--gradient);
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+    }
 
-  const stations = await fetchStations(token)
+    .info {
+      max-width: 75%;
+    }
 
-  const currentStation = stations[0]
-  const currentDevice = currentStation.devices.filter(
-    ({ environment }) => environment === 'outdoor',
-  )[0]
+    main {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
+ j  }
+  `
+  @state()
+  private token = read(TOKEN_KEY) ?? ''
+  @state()
+  private station: Station | undefined
+  @state()
+  private device: Device | undefined
 
-  writeTo('#stationName', currentStation.name)
-  writeTo('#deviceName', currentDevice.name)
+  constructor() {
+    super()
+    if (!this.token) redirect('/')
+  }
 
-  const observations = await fetchObservations(token, currentDevice.id)
-  type DailyTemps = Record<string, number[]>
-  const dailyTemps: DailyTemps = observations.reduce(
-    (acc, { date, temperature }) => {
-      const key = `${date.getFullYear()}/${
-        date.getMonth() + 1
-      }/${date.getDate()}`
-      const temps = acc[key] ?? []
-      return {
-        ...acc,
-        [key]: [...temps, temperature],
-      }
-    },
-    {} as DailyTemps,
-  )
-  const drops = Object.entries(dailyTemps)
-    .map(([date, temps]): [string, boolean] => [date, temps.some(x => x <= 0)])
-    .filter(([, hadDrop]) => Boolean(hadDrop))
-    .map(([date]: [string, boolean]): string => date)
+  async connectedCallback() {
+    super.connectedCallback()
+    await this.fetchStationAndDevice()
+  }
 
-  const recentDrop: string = new Date(drops.at(-1) ?? '').toLocaleDateString()
+  async fetchStationAndDevice() {
+    const [station] = await fetchStations(this.token)
+    this.station = station
+    this.device = station.devices.filter(
+      ({ environment }) => environment === 'outdoor',
+    )[0]
+    this.requestUpdate()
+  }
 
-  const averageTemp =
-    observations.reduce((acc, { temperature }) => acc + temperature, 0) /
-    observations.length
-
-  const cutoff = new Date(`March 1, ${new Date().getFullYear()}`)
-  const now = observations.at(-1)?.date ?? new Date()
-
-  writeTo('#startDate', observations[0].date.toLocaleDateString())
-  writeTo('#pastDate', now > cutoff ? '✓' : '✗')
-  writeTo('#avgTemp', `${Math.round(toF(averageTemp))}°F`)
-  writeTo(
-    '#drops',
-    `${drops.length.toString()}${
-      drops.length ? ` (most recently: ${recentDrop})` : ''
-    }`,
-  )
+  render = () => html`
+    <article>
+      <header>
+        ${when(
+          Boolean(this.device),
+          () => html`
+            <station-info
+              class="info"
+              stationName=${this.station?.name}
+              deviceName=${this.device?.name}
+            ></station-info>
+          `,
+          () => html`
+            <station-info
+              class="info"
+              stationName="loading..."
+              deviceName="loading..."
+            ></station-info>
+          `,
+        )}
+        <logout-button></logout-button>
+      </header>
+      <main>
+        <h1>should I change the&nbsp;tires?</h1>
+        <weather-observations
+          deviceid=${this.device?.id}
+          token=${this.token}
+        ></weather-observations>
+      </main>
+    </article>
+  `
 }
-
-const verifyToken = (token: string | null): token is string => Boolean(token)
-
-const logout = (): void => {
-  clear()
-  redirect('/')
-}
-
-const writeTo = (element: string, content: string): void =>
-  document.querySelector(element)?.replaceChildren(content)
-
-const toF = (C: number): number => C * 1.8 + 32
-
-main()
