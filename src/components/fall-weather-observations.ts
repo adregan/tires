@@ -115,8 +115,9 @@ export default class FallWeatherObservations extends LitElement {
   } {
     const dailyTemps: DailyTemps = observations.reduce(
       (acc, { date, temperature }) => {
-        const key = `${date.getFullYear()}/${date.getMonth() + 1
-          }/${date.getDate()}`
+        const key = `${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()}`
         const temps = acc[key] ?? []
         return {
           ...acc,
@@ -148,9 +149,9 @@ export default class FallWeatherObservations extends LitElement {
       () => {
         return html`
           ${until(
-          this.getObservations(),
-          html`<loading-indicator></loading-indicator>`,
-        )}
+            this.getObservations(),
+            html`<loading-indicator></loading-indicator>`,
+          )}
         `
       },
       () => html`<loading-indicator></loading-indicator>`,
