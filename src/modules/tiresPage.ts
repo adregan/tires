@@ -70,45 +70,48 @@ export default class TiresPage extends LitElement {
     this.requestUpdate()
   }
 
-  render = () => html`
-    <article>
-      <header>
-        ${when(
-          Boolean(this.device),
-          () => html`
-            <station-info
-              class="info"
-              stationName=${this.station?.name}
-              deviceName=${this.device?.name}
-            ></station-info>
-          `,
-          () => html`
-            <station-info
-              class="info"
-              stationName="loading..."
-              deviceName="loading..."
-            ></station-info>
-          `,
-        )}
-        <logout-button></logout-button>
-      </header>
-      <main>
-        ${when(
-          new Date().getMonth() > 6, // after July
-          () => html`<h1>should I put on the&nbsp;snowtires?</h1>
-            <fall-weather-observations
-              deviceid=${this.device?.id}
-              token=${this.token}
-            ></fall-weather-observations>`,
-
-          () => html`< h1 > should I remove the & nbsp; snowtires?</h1>
-            <spring-weather-observations
-              deviceid = ${this.device?.id}
-              token = ${this.token}
-            ></spring-weather-observations>`,
-        )}
-      </main>
-      < /article>
-    </article>
-  `
+  render = () =>
+    html`
+      <article>
+        <header>
+          ${when(
+            Boolean(this.device),
+            () =>
+              html`
+                <station-info
+                  class="info"
+                  stationName=${this.station?.name}
+                  deviceName=${this.device?.name}
+                ></station-info>
+              `,
+            () =>
+              html`
+                <station-info
+                  class="info"
+                  stationName="loading..."
+                  deviceName="loading..."
+                ></station-info>
+              `,
+          )}
+          <logout-button></logout-button>
+        </header>
+        <main>
+          ${when(
+            new Date().getMonth() > 6, // after July
+            () =>
+              html`<h1>should I put on the&nbsp;snowtires?</h1>
+                <fall-weather-observations
+                  deviceid=${this.device?.id}
+                  token=${this.token}
+                ></fall-weather-observations>`,
+            () =>
+              html`<h1>should I remove the&nbsp;snowtires?</h1>
+                <spring-weather-observations
+                  deviceid=${this.device?.id}
+                  token=${this.token}
+                ></spring-weather-observations>`,
+          )}
+        </main>
+      </article>
+    `
 }
